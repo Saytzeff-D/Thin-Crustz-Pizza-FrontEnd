@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react'
+import { Route, Routes } from 'react-router-dom';
+import About from './components/About';
+import AddMenu from './components/AddMenu';
+import Admin from './components/Admin';
+import HistoryOfOrder from './components/HistoryOfOrder';
+import Home from './components/Home';
+import Menu from './components/Menu';
+import Nav from './components/Nav';
 
 function App() {
+  // const server = 'http://localhost:9090/'
+  const server = 'https://thin-crustz-pizza.herokuapp.com/'
+  useEffect(()=>{
+    // window.confirm("Are you sure you want to view this page")
+  })
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Routes>
+          <Route path="/" element={<Nav/>}>
+            <Route path='/' element={<Home/>} />
+            <Route path='/about' element={<About/>} />
+            <Route path='/menu' element={<Menu url={server} />} />
+          </Route>
+          <Route path="/admin" element={<Admin/>} >
+            <Route path='/admin/' element={<AddMenu url={server}/>} />
+            <Route path='/admin/orderHistory' element={<HistoryOfOrder/>} />
+          </Route>
+        </Routes>
     </div>
   );
 }
